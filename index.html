@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Himalayan Java Elite | NK Digital Services</title>
+    <style>
+        :root {
+            --bean-color: #4e6e5d;
+            --roaster-color: #5d4037;
+            --master-color: #b8860b;
+            --white-glass: rgba(255, 255, 255, 0.85);
+        }
+
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* --- VIDEO BACKGROUND SECTION --- */
+        #bg-video {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            z-index: -2;
+            object-fit: cover;
+        }
+
+        .video-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* Darkens video for readability */
+            z-index: -1;
+        }
+
+        /* --- DASHBOARD STYLING --- */
+        .dashboard {
+            width: 90%;
+            max-width: 450px;
+            background: var(--white-glass);
+            backdrop-filter: blur(10px); /* Modern blur effect */
+            padding: 40px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .badge-container {
+            width: 120px;
+            height: 120px;
+            background: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        #tier-logo {
+            width: 80%;
+            height: auto;
+            transition: transform 0.5s ease;
+        }
+
+        .tier-title {
+            font-size: 26px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+
+        /* --- PROGRESS BAR --- */
+        .progress-box {
+            background: rgba(0,0,0,0.1);
+            border-radius: 15px;
+            height: 14px;
+            width: 100%;
+            margin: 25px 0;
+        }
+
+        #progress-fill {
+            height: 100%;
+            width: 5%;
+            border-radius: 15px;
+            background: var(--bean-color);
+            transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.5s;
+        }
+
+        .benefit-card {
+            background: rgba(255,255,255,0.5);
+            padding: 15px;
+            border-radius: 12px;
+            text-align: left;
+            margin-bottom: 25px;
+        }
+
+        /* --- BUTTONS --- */
+        .btn-add {
+            background: #222;
+            color: gold;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .btn-add:hover {
+            background: #444;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            margin-top: 20px;
+            font-size: 11px;
+            color: #444;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <video autoplay muted loop playsinline id="bg-video">
+        <source src="PASTE_VIDEO_LINK_HERE" type="video/mp4">
+    </video>
+    <div class="video-overlay"></div>
+
+    <div class="dashboard">
+        <div class="badge-container">
+            <img id="tier-logo" src="PASTE_BEAN_LOGO_LINK_HERE" alt="Tier Logo">
+        </div>
+
+        <div id="tier-name" class="tier-title" style="color: var(--bean-color);">Bean Tier</div>
+        <p style="color: #555;">Club Progress: <span id="coffee-count">0</span>/20 Cups</p>
+
+        <div class="progress-box">
+            <div id="progress-fill"></div>
+        </div>
+
+        <div class="benefit-card">
+            <small>MEMBERSHIP PERKS:</small>
+            <ul id="benefit-items" style="font-size: 14px; margin-top: 10px; padding-left: 20px;">
+                <li>Digital Stamp Card</li>
+                <li>New Brew Notifications</li>
+            </ul>
+        </div>
+
+        <button class="btn-add" onclick="buyCoffee()">☕ RECORD A PURCHASE</button>
+        
+        <footer>
+            PROUDLY DEVELOPED BY <strong>MRTECHNICIAN</strong><br>
+            NK DIGITAL SERVICES
+        </footer>
+    </div>
+
+    <script>
+        let count = 0;
+
+        // --- PASTE YOUR LOGO LINKS HERE ---
+        const logos = {
+            bean: "vintage-grunge-coffee-beans-logo-600nw-2652101375.jpg",
+            roaster: "PASTE_ROASTER_LOGO_LINK_HERE",
+            master: "coffee-barista-bartender-logo-design_43582-100.jpg"
+        };
+
+        function buyCoffee() {
+            count++;
+            if(count > 20) count = 20; // Caps at 20
+            updateUI();
+        }
+
+        function updateUI() {
+            const countLabel = document.getElementById('coffee-count');
+            const fill = document.getElementById('progress-fill');
+            const logoImg = document.getElementById('tier-logo');
+            const name = document.getElementById('tier-name');
+            const benefitBox = document.getElementById('benefit-items');
+
+            countLabel.innerText = count;
+
+            if (count >= 20) {
+                // MASTER TIER
+                fill.style.width = "100%";
+                fill.style.background = "var(--master-color)";
+                logoImg.src = logos.master;
+                name.innerText = "Barista Master";
+                name.style.color = "var(--master-color)";
+                benefitBox.innerHTML = "<li>VIP Reserved Table</li><li>Free Weekly Pastry</li><li>Access to Tasting Events</li>";
+            } 
+            else if (count >= 10) {
+                // ROASTER TIER
+                fill.style.width = "60%";
+                fill.style.background = "var(--roaster-color)";
+                logoImg.src = logos.roaster;
+                name.innerText = "Roaster Tier";
+                name.style.color = "var(--roaster-color)";
+                benefitBox.innerHTML = "<li>10% Off Bean Bags</li><li>Birthday Reward</li><li>Double Points Weekends</li>";
+            } 
+            else {
+                // BEAN TIER
+                let percent = (count / 10) * 60; 
+                fill.style.width = percent + "%";
+                fill.style.background = "var(--bean-color)";
+                logoImg.src = logos.bean;
+                name.innerText = "Bean Tier";
+                name.style.color = "var(--bean-color)";
+                benefitBox.innerHTML = "<li>Digital Stamp Card</li><li>New Brew Notifications</li>";
+            }
+        }
+    </script>
+</body>
+</html>
