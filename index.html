@@ -6,225 +6,339 @@
     <title>Himalayan Java Elite | NK Digital Services</title>
     <style>
         :root {
-            --bean-color: #4e6e5d;
-            --roaster-color: #5d4037;
-            --master-color: #b8860b;
-            --white-glass: rgba(255, 255, 255, 0.85);
+            --java-gold: #d4af37;
+            --java-brown: #3e2723;
+            --bean-green: #4e6e5d;
+            --glass: rgba(255, 255, 255, 0.15);
+            --text-light: #f4f4f4;
         }
+
+        * { box-sizing: border-box; transition: all 0.4s ease; }
 
         body, html {
             margin: 0;
             padding: 0;
+            width: 100%;
             height: 100%;
-            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0a;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-light);
             overflow-x: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
         }
 
-        /* --- VIDEO BACKGROUND SECTION --- */
+        /* --- BACKGROUND VIDEO & OVERLAY --- */
         #bg-video {
-            position: fixed;
-            right: 0;
-            bottom: 0;
-            min-width: 100%;
-            min-height: 100%;
-            z-index: -2;
-            object-fit: cover;
-        }
-
-        .video-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.5); /* Darkens video for readability */
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.8) 100%);
             z-index: -1;
         }
 
-        /* --- DASHBOARD STYLING --- */
-        .dashboard {
-            width: 90%;
-            max-width: 450px;
-            background: var(--white-glass);
-            backdrop-filter: blur(10px); /* Modern blur effect */
-            padding: 40px;
-            border-radius: 25px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
-            text-align: center;
-            border: 1px solid rgba(255,255,255,0.3);
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        .badge-container {
-            width: 120px;
-            height: 120px;
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .brand-logo {
+            font-size: 28px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            color: var(--java-gold);
+            margin-bottom: 10px;
+        }
+
+        /* --- MAIN DASHBOARD --- */
+        .main-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 40px;
+            padding: 50px;
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+        }
+
+        .badge-wrapper {
+            width: 150px;
+            height: 150px;
             background: white;
             border-radius: 50%;
-            margin: 0 auto 20px;
+            margin: 0 auto 30px;
             display: flex;
             justify-content: center;
             align-items: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            overflow: hidden;
+            border: 5px solid var(--java-gold);
+            padding: 10px;
         }
 
         #tier-logo {
-            width: 80%;
+            max-width: 100%;
             height: auto;
-            transition: transform 0.5s ease;
+            object-fit: contain;
         }
 
-        .tier-title {
-            font-size: 26px;
-            font-weight: bold;
+        .status-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 50px;
+            background: var(--java-gold);
+            color: #000;
+            font-weight: 800;
+            font-size: 12px;
+            margin-bottom: 15px;
             text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 5px;
         }
 
-        /* --- PROGRESS BAR --- */
-        .progress-box {
-            background: rgba(0,0,0,0.1);
-            border-radius: 15px;
-            height: 14px;
+        h2#tier-name {
+            font-size: 32px;
+            margin: 10px 0;
+        }
+
+        /* --- PROGRESS SECTION --- */
+        .progress-container {
+            margin: 30px 0;
+        }
+
+        .bar-bg {
+            background: rgba(255,255,255,0.1);
+            height: 12px;
+            border-radius: 10px;
             width: 100%;
-            margin: 25px 0;
+            overflow: hidden;
+            margin-top: 10px;
         }
 
-        #progress-fill {
+        .bar-fill {
             height: 100%;
             width: 5%;
-            border-radius: 15px;
-            background: var(--bean-color);
-            transition: width 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.5s;
+            background: var(--java-gold);
+            box-shadow: 0 0 15px var(--java-gold);
         }
 
-        .benefit-card {
-            background: rgba(255,255,255,0.5);
+        /* --- PERKS SECTION --- */
+        .perks-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .perk-item {
+            background: rgba(255,255,255,0.05);
             padding: 15px;
-            border-radius: 12px;
-            text-align: left;
-            margin-bottom: 25px;
+            border-radius: 20px;
+            font-size: 13px;
+            border: 1px solid rgba(255,255,255,0.1);
         }
 
-        /* --- BUTTONS --- */
-        .btn-add {
-            background: #222;
-            color: gold;
-            padding: 15px 30px;
+        /* --- INTERACTIVE BUTTON --- */
+        .cta-button {
+            background: var(--java-gold);
+            color: black;
             border: none;
+            padding: 20px 40px;
             border-radius: 50px;
-            font-weight: bold;
+            font-weight: 900;
+            font-size: 18px;
             cursor: pointer;
+            margin-top: 40px;
             width: 100%;
-            font-size: 16px;
-            transition: 0.3s;
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
         }
 
-        .btn-add:hover {
-            background: #444;
-            transform: translateY(-2px);
+        .cta-button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
+        }
+
+        /* --- COMMUNITY SECTION --- */
+        .community-news {
+            margin-top: 60px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .news-card {
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 25px;
+            margin: 15px 0;
+            display: flex;
+            align-items: center;
+            text-align: left;
         }
 
         footer {
-            margin-top: 20px;
-            font-size: 11px;
-            color: #444;
-            letter-spacing: 1px;
+            margin-top: 100px;
+            padding: 40px;
+            text-align: center;
+            opacity: 0.6;
+            font-size: 12px;
+            letter-spacing: 2px;
         }
     </style>
 </head>
 <body>
 
     <video autoplay muted loop playsinline id="bg-video">
-        <source src="Milk being poured into a mug with coffee_ creating latte art(360P).mp4" type="video/mp4">
+        <source src="" type="video/mp4">
     </video>
-    <div class="video-overlay"></div>
+    <div class="overlay"></div>
 
-    <div class="dashboard">
-        <div class="badge-container">
-            <img id="tier-logo" src="vintage-grunge-coffee-beans-logo-600nw-2652101375.jpg" alt="Tier Logo">
-        </div>
-
-        <div id="tier-name" class="tier-title" style="color: var(--bean-color);">Bean Tier</div>
-        <p style="color: #555;">Club Progress: <span id="coffee-count">0</span>/20 Cups</p>
-
-        <div class="progress-box">
-            <div id="progress-fill"></div>
-        </div>
-
-        <div class="benefit-card">
-            <small>MEMBERSHIP PERKS:</small>
-            <ul id="benefit-items" style="font-size: 14px; margin-top: 10px; padding-left: 20px;">
-                <li>Digital Stamp Card</li>
-                <li>New Brew Notifications</li>
-            </ul>
-        </div>
-
-        <button class="btn-add" onclick="buyCoffee()">☕ RECORD A PURCHASE</button>
+    <div class="container">
         
+        <header>
+            <div class="brand-logo">Himalayan Java</div>
+            <p>EST. 1999 | THE ELITE MEMBERSHIP</p>
+        </header>
+
+        <div class="main-card">
+            <div class="status-badge" id="badge-label">Active Member</div>
+            
+            <div class="badge-wrapper">
+                <img id="tier-logo" src="vintage-grunge-coffee-beans-logo-600nw-2652101375.jpg" alt="Status Badge">
+            </div>
+
+            <h2 id="tier-name">Bean Tier</h2>
+            <p style="opacity: 0.8;">Welcome back, <strong>Nir</strong>. Your journey to Master Barista continues.</p>
+
+            <div class="progress-container">
+                <div style="display: flex; justify-content: space-between; font-size: 12px;">
+                    <span>PROGRESS</span>
+                    <span><span id="coffee-count">0</span> / 20 CUPS</span>
+                </div>
+                <div class="bar-bg">
+                    <div id="progress-fill" class="bar-fill"></div>
+                </div>
+            </div>
+
+            <div class="perks-grid" id="perk-box">
+                <div class="perk-item">☕ Free Daily Upsize</div>
+                <div class="perk-item">📱 Digital Stamps</div>
+            </div>
+
+            <button class="cta-button" onclick="recordVisit()">RECORD A VISIT</button>
+        </div>
+
+        <div class="community-news">
+            <h3>COMMUNITY INSIGHTS</h3>
+            <div class="news-card">
+                <div style="font-size: 30px; margin-right: 20px;">🌍</div>
+                <div>
+                    <strong>Impact Tracker</strong><br>
+                    <small>You've supported 2 Nepali coffee farms this month.</small>
+                </div>
+            </div>
+            <div class="news-card">
+                <div style="font-size: 30px; margin-right: 20px;">🎷</div>
+                <div>
+                    <strong>Jazz Night: Thamel</strong><br>
+                    <small>Join us this Friday at 6:00 PM for live acoustic sets.</small>
+                </div>
+            </div>
+        </div>
+
         <footer>
-            PROUDLY DEVELOPED BY <strong>MRTECHNICIAN</strong><br>
-            NK DIGITAL SERVICES
+            DIGITAL EXPERIENCE CRAFTED BY<br>
+            <strong>MRTECHNICIAN | NK DIGITAL SERVICES</strong>
         </footer>
+
     </div>
 
     <script>
         let count = 0;
 
-        // --- PASTE YOUR LOGO LINKS HERE ---
-        const logos = {
-            bean: "vintage-grunge-coffee-beans-logo-600nw-2652101375.jpg",
-            roaster: "914ecdcc92e28e6f9d5c9ccd47b22bd6-4b1a90014926871944da69e33a1a039116352216411236.png",
-            master: "coffee-barista-bartender-logo-design_43582-100.jpg"
+        const data = {
+            bean: {
+                name: "Bean Tier",
+                logo: "vintage-grunge-coffee-beans-logo-600nw-2652101375.jpg",
+                color: "#4e6e5d",
+                perks: ["☕ Digital Stamps", "📱 App Access"]
+            },
+            roaster: {
+                name: "Roaster Tier",
+                logo: "914ecdcc92e28e6f9d5c9ccd47b22bd6-4b1a90014926871944da69e33a1a039116352216411236.png",
+                color: "#5d4037",
+                perks: ["🍩 Free B-Day Cake", "🛍️ 10% Off Beans"]
+            },
+            master: {
+                name: "Barista Master",
+                logo: "coffee-barista-bartender-logo-design_43582-100.jpg",
+                color: "#d4af37",
+                perks: ["🛋️ Reserved Seating", "✨ VIP Tasting Events"]
+            }
         };
 
-        function buyCoffee() {
-            count++;
-            if(count > 20) count = 20; // Caps at 20
-            updateUI();
+        function recordVisit() {
+            if(count < 20) {
+                count++;
+                updateUI();
+            }
         }
 
         function updateUI() {
             const countLabel = document.getElementById('coffee-count');
             const fill = document.getElementById('progress-fill');
-            const logoImg = document.getElementById('tier-logo');
+            const logo = document.getElementById('tier-logo');
             const name = document.getElementById('tier-name');
-            const benefitBox = document.getElementById('benefit-items');
-
+            const perkBox = document.getElementById('perk-box');
+            
             countLabel.innerText = count;
 
+            let current;
             if (count >= 20) {
-                // MASTER TIER
+                current = data.master;
                 fill.style.width = "100%";
-                fill.style.background = "var(--master-color)";
-                logoImg.src = logos.master;
-                name.innerText = "Barista Master";
-                name.style.color = "var(--master-color)";
-                benefitBox.innerHTML = "<li>VIP Reserved Table</li><li>Free Weekly Pastry</li><li>Access to Tasting Events</li>";
-            } 
-            else if (count >= 10) {
-                // ROASTER TIER
+            } else if (count >= 10) {
+                current = data.roaster;
                 fill.style.width = "60%";
-                fill.style.background = "var(--roaster-color)";
-                logoImg.src = logos.roaster;
-                name.innerText = "Roaster Tier";
-                name.style.color = "var(--roaster-color)";
-                benefitBox.innerHTML = "<li>10% Off Bean Bags</li><li>Birthday Reward</li><li>Double Points Weekends</li>";
-            } 
-            else {
-                // BEAN TIER
-                let percent = (count / 10) * 60; 
-                fill.style.width = percent + "%";
-                fill.style.background = "var(--bean-color)";
-                logoImg.src = logos.bean;
-                name.innerText = "Bean Tier";
-                name.style.color = "var(--bean-color)";
-                benefitBox.innerHTML = "<li>Digital Stamp Card</li><li>New Brew Notifications</li>";
+            } else {
+                current = data.bean;
+                fill.style.width = (count * 6) + "%";
             }
+
+            // Visual Updates
+            name.innerText = current.name;
+            name.style.color = current.color;
+            logo.src = current.logo;
+            fill.style.background = current.color;
+            fill.style.boxShadow = `0 0 15px ${current.color}`;
+
+            // Update Perks
+            perkBox.innerHTML = current.perks.map(p => `<div class="perk-item">${p}</div>`).join('');
+            
+            // Animation
+            logo.parentElement.style.transform = "scale(1.1)";
+            setTimeout(() => { logo.parentElement.style.transform = "scale(1)"; }, 300);
         }
     </script>
 </body>
-</html>
+    </html>
+    
